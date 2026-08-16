@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aether Academic | Admin Control Panel</title>
+    <!-- Google Fonts: Outfit & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- Ambient background glow elements -->
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+    <div class="ambient-glow glow-3"></div>
+
+    <!-- Main View Wrapper -->
+    <div class="view active" id="view-dashboard">
+        <div class="dashboard-layout">
+
+            <!-- Sidebar Navigation -->
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <div class="logo">
+                        <i class="fa-solid fa-graduation-cap logo-icon"></i>
+                        <span>Aether<span class="gradient-text">Academic</span></span>
+                    </div>
+                    <span class="role-badge" id="sidebar-role-badge">Student</span>
+                </div>
+
+                <nav class="sidebar-menu">
+                    <a href="dashboard.html" class="sidebar-item">
+                        <i class="fa-solid fa-chart-pie"></i> Dashboard
+                    </a>
+                    <a href="scheduler.html" class="sidebar-item">
+                        <i class="fa-solid fa-calendar-days"></i> Study Scheduler
+                    </a>
+                    <a href="tasks.html" class="sidebar-item">
+                        <i class="fa-solid fa-list-check"></i> Tasks Board
+                    </a>
+                    <a href="focus.html" class="sidebar-item">
+                        <i class="fa-solid fa-clock"></i> Focus Room
+                    </a>
+                    <a href="settings.html" class="sidebar-item">
+                        <i class="fa-solid fa-gear"></i> Settings
+                    </a>
+                    <!-- Only shown to Admin -->
+                    <a href="admin.html" class="sidebar-item admin-only active" id="sidebar-admin-link"
+                        style="display: none;">
+                        <i class="fa-solid fa-envelope-open-text"></i> Admin Panel
+                    </a>
+                </nav>
+
+                <!-- User context block -->
+                <div class="sidebar-footer">
+                    <div class="user-profile-summary">
+                        <div class="user-avatar" id="nav-user-avatar">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <div class="user-details">
+                            <h4 id="nav-username">John Doe</h4>
+                            <p id="nav-useremail">student@learn.com</p>
+                        </div>
+                    </div>
+                    <a href="#" class="logout-btn" id="btn-logout" title="Sign Out">
+                        <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+                    </a>
+                </div>
+            </aside>
+
+            <!-- Main Workspace Area -->
+            <main class="dashboard-main">
+                <!-- Top bar with notification/system announcement message -->
+                <header class="dashboard-topbar">
+                    <div class="announcement-marquee" id="dynamic-announcement">
+                        <i class="fa-solid fa-bullhorn text-accent animate-bounce"></i>
+                        <span id="announcement-text">Welcome to your academic launchpad...</span>
+                    </div>
+                    <div class="topbar-actions">
+                        <div class="avatar-dropdown-trigger">
+                            <span class="greeting">Hi, <strong id="greeting-name">Student</strong>!</span>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="tab-content-container">
+
+                    <!-- TAB: ADMIN PANEL -->
+                    <section id="tab-admin" class="tab-content active">
+                        <div class="section-header-row" style="margin-bottom: 25px;">
+                            <div>
+                                <h2>Administration Control Panel</h2>
+                                <p>Oversee user accounts registry, analyze combined system logs, and publish site
+                                    announcements.</p>
+                            </div>
+                        </div>
+
+                        <!-- System metrics block -->
+                        <div class="stat-grid" style="margin-bottom: 30px;">
+                            <div class="glass-card stat-card">
+                                <div class="stat-icon-bg bg-purple">
+                                    <i class="fa-solid fa-users"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <span>Total Registered Users</span>
+                                    <h2 id="admin-total-users">0</h2>
+                                </div>
+                            </div>
+                            <div class="glass-card stat-card">
+                                <div class="stat-icon-bg bg-green">
+                                    <i class="fa-solid fa-hourglass-half"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <span>Combined Focus Time</span>
+                                    <h2 id="admin-total-hours">0h</h2>
+                                </div>
+                            </div>
+                            <div class="glass-card stat-card">
+                                <div class="stat-icon-bg bg-blue">
+                                    <i class="fa-solid fa-calendar-check"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <span>Schedules Logged</span>
+                                    <h2 id="admin-total-tasks">0</h2>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Announcement administration -->
+                        <div class="glass-card admin-broadcast-panel" style="margin-bottom: 30px;">
+                            <h3>Global Announcement Broadcast</h3>
+                            <p class="text-muted" style="font-size: 0.8rem; margin-bottom: 15px;">Target alert banners
+                                shown above the workspace screens.</p>
+                            <form id="admin-announcement-form">
+                                <div class="form-group">
+                                    <textarea id="announcement-input"
+                                        placeholder="Type customized notification announcement content..." required
+                                        rows="3" class="input-field"
+                                        style="resize: vertical; font-family: inherit; font-size: 0.9rem; padding: 12px;"></textarea>
+                                </div>
+                                <div class="modal-actions"
+                                    style="justify-content: flex-start; gap: 15px; margin-top: 15px;">
+                                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-bullhorn"></i>
+                                        Publish Announcement</button>
+                                    <button type="button" class="btn btn-outline" id="btn-clear-announcement"><i
+                                            class="fa-solid fa-trash-can"></i> Remove Active Announcement</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- User Accounts Management Directory -->
+                        <div class="glass-card all-schedules-card">
+                            <h3>User Accounts Registry Management</h3>
+                            <div class="search-filter-row">
+                                <div class="input-wrapper search-box-wrapper" style="max-width: 100%;">
+                                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                                    <input type="text" id="admin-user-search"
+                                        placeholder="Filter emails or names directory...">
+                                </div>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Registration Date</th>
+                                            <th>Display Name</th>
+                                            <th>Email Address</th>
+                                            <th>Privileges Role</th>
+                                            <th>Cumulative Focus</th>
+                                            <th>Active Tasks</th>
+                                            <th>Options</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="admin-users-table-body">
+                                        <!-- Rendered dynamically -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Supabase JS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/common.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+
+</html>

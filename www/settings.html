@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aether Academic | User Settings</title>
+    <!-- Google Fonts: Outfit & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .color-dot {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2.5px solid rgba(24, 24, 35, 0.2);
+            box-sizing: border-box;
+        }
+
+        .color-dot:hover {
+            transform: scale(1.2);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 10px var(--dot-glow);
+        }
+
+        .color-dot.active {
+            border-color: #ffffff;
+            transform: scale(1.22);
+            box-shadow: 0 0 14px var(--dot-glow), inset 0 0 0 2px rgba(9, 9, 14, 0.4);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Ambient background glow elements -->
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+    <div class="ambient-glow glow-3"></div>
+
+    <!-- Main View Wrapper -->
+    <div class="view active" id="view-dashboard">
+        <div class="dashboard-layout">
+
+            <!-- Sidebar Navigation -->
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <div class="logo">
+                        <i class="fa-solid fa-graduation-cap logo-icon"></i>
+                        <span>Aether<span class="gradient-text">Academic</span></span>
+                    </div>
+                    <span class="role-badge" id="sidebar-role-badge">Student</span>
+                </div>
+
+                <nav class="sidebar-menu">
+                    <a href="dashboard.html" class="sidebar-item">
+                        <i class="fa-solid fa-chart-pie"></i> Dashboard
+                    </a>
+                    <a href="scheduler.html" class="sidebar-item">
+                        <i class="fa-solid fa-calendar-days"></i> Study Scheduler
+                    </a>
+                    <a href="tasks.html" class="sidebar-item">
+                        <i class="fa-solid fa-list-check"></i> Tasks Board
+                    </a>
+                    <a href="focus.html" class="sidebar-item">
+                        <i class="fa-solid fa-clock"></i> Focus Room
+                    </a>
+                    <a href="settings.html" class="sidebar-item active">
+                        <i class="fa-solid fa-gear"></i> Settings
+                    </a>
+                    <!-- Only shown to Admin -->
+                    <a href="admin.html" class="sidebar-item admin-only" id="sidebar-admin-link" style="display: none;">
+                        <i class="fa-solid fa-envelope-open-text"></i> Admin Panel
+                    </a>
+                </nav>
+
+                <!-- User context block -->
+                <div class="sidebar-footer">
+                    <div class="user-profile-summary">
+                        <div class="user-avatar" id="nav-user-avatar">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <div class="user-details">
+                            <h4 id="nav-username">John Doe</h4>
+                            <p id="nav-useremail">student@learn.com</p>
+                        </div>
+                    </div>
+                    <a href="#" class="logout-btn" id="btn-logout" title="Sign Out">
+                        <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+                    </a>
+                </div>
+            </aside>
+
+            <!-- Main Workspace Area -->
+            <main class="dashboard-main">
+                <!-- Top bar with notification/system announcement message -->
+                <header class="dashboard-topbar">
+                    <div class="announcement-marquee" id="dynamic-announcement">
+                        <i class="fa-solid fa-bullhorn text-accent animate-bounce"></i>
+                        <span id="announcement-text">Welcome to your academic launchpad...</span>
+                    </div>
+                    <div class="topbar-actions">
+                        <div class="avatar-dropdown-trigger">
+                            <span class="greeting">Hi, <strong id="greeting-name">Student</strong>!</span>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="tab-content-container">
+
+                    <!-- TAB: SETTINGS -->
+                    <section id="tab-settings" class="tab-content active">
+                        <div class="section-header-row" style="margin-bottom: 25px;">
+                            <div>
+                                <h2>Account & Preferences</h2>
+                                <p>Manage your student profile information, customize study course subjects, and tune
+                                    your academic planner.</p>
+                            </div>
+                        </div>
+
+                        <div class="charts-and-todays-grid">
+
+                            <!-- Profile Details Card -->
+                            <div class="glass-card settings-card" style="padding: 30px;">
+                                <h3 style="margin-bottom: 15px;"><i class="fa-solid fa-circle-user gradient-text"
+                                        style="margin-right: 8px;"></i> Profile Identity</h3>
+                                <form id="profile-settings-form">
+                                    <div class="avatar-upload-wrapper"
+                                        style="display: flex; align-items: center; gap: 20px; margin-bottom: 20px; border-bottom: 1px solid var(--border-glass); padding-bottom: 20px;">
+                                        <div class="avatar-preview-container"
+                                            style="position: relative; width: 80px; height: 80px; border-radius: 50%; border: 2px solid var(--primary-accent); overflow: hidden; background: rgba(255,255,255,0.03); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px rgba(139, 92, 246, 0.23);">
+                                            <img id="settings-avatar-img" src="" alt="Avatar"
+                                                style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                                            <div id="settings-avatar-placeholder"
+                                                style="color: var(--text-secondary); font-size: 2rem;"><i
+                                                    class="fa-solid fa-user"></i></div>
+                                        </div>
+                                        <div>
+                                            <label for="settings-avatar-input" class="btn btn-secondary btn-sm"
+                                                style="cursor: pointer; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 0;">
+                                                <i class="fa-solid fa-camera"></i> Change Photo
+                                            </label>
+                                            <input type="file" id="settings-avatar-input" accept="image/*"
+                                                style="display: none;">
+                                            <span
+                                                style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-top: 6px;">Recommended:
+                                                Square JPG or PNG.</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 15px;">
+                                        <label for="settings-fullname">Full Name</label>
+                                        <input type="text" id="settings-fullname" required class="input-field"
+                                            placeholder="e.g. John Doe">
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 15px;">
+                                        <label for="settings-email">Email Address</label>
+                                        <input type="email" id="settings-email" disabled class="input-field"
+                                            style="opacity: 0.6; cursor: not-allowed;" placeholder="student@learn.com">
+                                        <span
+                                            style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; display: block;">Registered
+                                            email address cannot be changed.</span>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" style="margin-top: 10px;"><i
+                                            class="fa-solid fa-save"></i> Save Profile Details</button>
+                                </form>
+                            </div>
+
+                            <!-- Course Subjects Settings Card -->
+                            <div class="glass-card subjects-settings-card" style="padding: 30px;">
+                                <h3 style="margin-bottom: 5px;"><i class="fa-solid fa-tags gradient-text"
+                                        style="margin-right: 8px;"></i> Course Subjects</h3>
+                                <p class="text-muted" style="font-size: 0.8rem; margin-bottom: 20px;">Add or modify
+                                    subjects for planning study blocks and tasks.</p>
+
+                                <form id="settings-subject-form"
+                                    style="margin-bottom: 25px; border-bottom: 1px solid var(--border-glass); padding-bottom: 20px;">
+                                    <h4 style="margin-bottom: 15px; font-size: 0.85rem; color: var(--text-primary);">
+                                        Create Custom Course Subject</h4>
+                                    <div style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 18px;">
+                                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                                            <label for="settings-new-subject-name"
+                                                style="font-size: 0.85rem; font-weight: 500; color: var(--text-secondary);">Subject
+                                                Name</label>
+                                            <input type="text" id="settings-new-subject-name"
+                                                placeholder="e.g. Sociology" required class="input-field"
+                                                style="margin-bottom: 0; box-sizing: border-box; height: 46px;">
+                                        </div>
+                                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                                            <label
+                                                style="font-size: 0.85rem; font-weight: 500; color: var(--text-secondary);">Color
+                                                Theme Palette</label>
+                                            <input type="hidden" id="settings-new-subject-color" value="#8b5cf6">
+
+                                            <div
+                                                style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                                                <div class="color-dot active" data-color="#8b5cf6"
+                                                    style="background-color: #8b5cf6; --dot-glow: #8b5cf6;"></div>
+                                                <div class="color-dot" data-color="#3b82f6"
+                                                    style="background-color: #3b82f6; --dot-glow: #3b82f6;"></div>
+                                                <div class="color-dot" data-color="#10b981"
+                                                    style="background-color: #10b981; --dot-glow: #10b981;"></div>
+                                                <div class="color-dot" data-color="#f59e0b"
+                                                    style="background-color: #f59e0b; --dot-glow: #f59e0b;"></div>
+                                                <div class="color-dot" data-color="#f43f5e"
+                                                    style="background-color: #f43f5e; --dot-glow: #f43f5e;"></div>
+                                                <div class="color-dot" data-color="#14b8a6"
+                                                    style="background-color: #14b8a6; --dot-glow: #14b8a6;"></div>
+                                                <div class="color-dot" data-color="#6366f1"
+                                                    style="background-color: #6366f1; --dot-glow: #6366f1;"></div>
+
+                                                <span
+                                                    style="width: 1px; height: 16px; background: var(--border-glass); margin: 0 4px;"></span>
+
+                                                <!-- Custom Color Wrapper -->
+                                                <div class="color-dot" id="custom-picker-dot-btn"
+                                                    style="background: linear-gradient(135deg, #ef4444, #3b82f6, #10b981); position: relative; --dot-glow: var(--primary-accent);">
+                                                    <input type="color" id="settings-custom-color-picker"
+                                                        value="#8b5cf6"
+                                                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; padding: 0; border: none; border-radius: 50%;">
+                                                    <i class="fa-solid fa-eye-dropper"
+                                                        style="position: absolute; font-size: 0.65rem; color: #fff; left: 50%; top: 50%; transform: translate(-50%, -50%); pointer-events: none;"></i>
+                                                </div>
+                                                <span
+                                                    style="font-size: 0.75rem; color: var(--text-secondary); margin-left: 5px; font-weight: 500;"
+                                                    id="selected-color-label">Violet (#8b5cf6)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-sm"><i
+                                            class="fa-solid fa-plus"></i> Add Course Subject</button>
+                                </form>
+
+                                <h4 style="margin-bottom: 12px; font-size: 0.85rem; color: var(--text-primary);">Active
+                                    Subjects Directory</h4>
+                                <div class="subjects-list-container" id="settings-subjects-directory-list"
+                                    style="max-height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 4px;">
+                                    <!-- Populated dynamically via settings.js -->
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Supabase JS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/common.js"></script>
+    <script src="js/settings.js"></script>
+</body>
+
+</html>

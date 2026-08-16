@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aether Academic | Authentic Access</title>
+    <!-- Google Fonts: Outfit & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- Ambient background glow elements -->
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+    <div class="ambient-glow glow-3"></div>
+
+    <!-- Auth View -->
+    <div class="view active" id="view-auth">
+        <div class="auth-container">
+            <div class="glass-card auth-card">
+                <a href="index.html" class="auth-back btn-back-to-landing">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Home
+                </a>
+
+                <div class="auth-header">
+                    <div class="logo">
+                        <i class="fa-solid fa-graduation-cap logo-icon"></i>
+                        <span>Aether<span class="gradient-text">Academic</span></span>
+                    </div>
+                    <h2 id="auth-title">Welcome Back</h2>
+                    <p id="auth-subtitle">Sign in to access your study schedules and stats.</p>
+                </div>
+
+                <form id="auth-form">
+                    <!-- Name block (only for signup) -->
+                    <div class="form-group" id="group-signup-name" style="display: none;">
+                        <label for="auth-name">Full Name</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-user input-icon"></i>
+                            <input type="text" id="auth-name" placeholder="John Doe">
+                        </div>
+                    </div>
+
+                    <!-- Email block -->
+                    <div class="form-group">
+                        <label for="auth-email">Email Address</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-envelope input-icon"></i>
+                            <input type="email" id="auth-email" placeholder="you@workspace.com" required>
+                        </div>
+                    </div>
+
+                    <!-- Password block -->
+                    <div class="form-group">
+                        <label for="auth-password">Password</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-lock input-icon"></i>
+                            <input type="password" id="auth-password" placeholder="••••••••" required>
+                        </div>
+                    </div>
+
+                    <div class="auth-extras" id="auth-extras-box">
+                        <div class="remember-me">
+                            <input type="checkbox" id="auth-remember">
+                            <label for="auth-remember">Remember me</label>
+                        </div>
+                        <a href="#" class="forgot-pass-trigger">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block" id="btn-auth-submit">Sign In</button>
+                </form>
+
+                <!-- Toggle flow -->
+                <div class="auth-switch">
+                    <span id="auth-switch-text">Don't have an account?</span>
+                    <a href="#" id="auth-switch-btn">Sign Up</a>
+                </div>
+
+                <div class="demo-accounts-info">
+                    <p><strong>Demo Accounts:</strong></p>
+                    <p><i class="fa-solid fa-user-shield"></i> Admin: <code>admin@learnscheduler.com</code> (Pass:
+                        <code>admin123</code>)
+                    </p>
+                    <p><i class="fa-solid fa-user"></i> Student: <code>user@learnscheduler.com</code> (Pass:
+                        <code>user123</code>)
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Supabase JS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Common JS -->
+    <script src="js/common.js"></script>
+    <!-- Auth JS -->
+    <script src="js/auth.js"></script>
+</body>
+
+</html>

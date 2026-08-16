@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aether Academic | Study Planner</title>
+    <!-- Google Fonts: Outfit & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- Ambient background glow elements -->
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+    <div class="ambient-glow glow-3"></div>
+
+    <!-- Main Application Wrapper -->
+    <div class="view active" id="view-dashboard">
+        <div class="dashboard-layout">
+
+            <!-- Sidebar Navigation -->
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <div class="logo">
+                        <i class="fa-solid fa-graduation-cap logo-icon"></i>
+                        <span>Aether<span class="gradient-text">Academic</span></span>
+                    </div>
+                    <span class="role-badge" id="sidebar-role-badge">Student</span>
+                </div>
+
+                <nav class="sidebar-menu">
+                    <a href="dashboard.html" class="sidebar-item">
+                        <i class="fa-solid fa-chart-pie"></i> Dashboard
+                    </a>
+                    <a href="scheduler.html" class="sidebar-item active">
+                        <i class="fa-solid fa-calendar-days"></i> Study Scheduler
+                    </a>
+                    <a href="tasks.html" class="sidebar-item">
+                        <i class="fa-solid fa-list-check"></i> Tasks Board
+                    </a>
+                    <a href="focus.html" class="sidebar-item">
+                        <i class="fa-solid fa-clock"></i> Focus Room
+                    </a>
+                    <a href="settings.html" class="sidebar-item">
+                        <i class="fa-solid fa-gear"></i> Settings
+                    </a>
+                    <!-- Only shown to Admin -->
+                    <a href="admin.html" class="sidebar-item admin-only" id="sidebar-admin-link" style="display: none;">
+                        <i class="fa-solid fa-envelope-open-text"></i> Admin Panel
+                    </a>
+                </nav>
+
+                <!-- User context block -->
+                <div class="sidebar-footer">
+                    <div class="user-profile-summary">
+                        <div class="user-avatar" id="nav-user-avatar">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <div class="user-details">
+                            <h4 id="nav-username">John Doe</h4>
+                            <p id="nav-useremail">student@learn.com</p>
+                        </div>
+                    </div>
+                    <a href="#" class="logout-btn" id="btn-logout" title="Sign Out">
+                        <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+                    </a>
+                </div>
+            </aside>
+
+            <!-- Main Workspace Area -->
+            <main class="dashboard-main">
+                <!-- Top bar with notification/system announcement message -->
+                <header class="dashboard-topbar">
+                    <div class="announcement-marquee" id="dynamic-announcement">
+                        <i class="fa-solid fa-bullhorn text-accent animate-bounce"></i>
+                        <span id="announcement-text">Welcome to your academic launchpad...</span>
+                    </div>
+                    <div class="topbar-actions">
+                        <div class="avatar-dropdown-trigger">
+                            <span class="greeting">Hi, <strong id="greeting-name">Student</strong>!</span>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="tab-content-container">
+
+                    <!-- TAB: SCHEDULER -->
+                    <section id="tab-scheduler" class="tab-content active">
+                        <div class="section-header-row">
+                            <div>
+                                <h2>Study Scheduler</h2>
+                                <p>Block out periods for your courses, structure homework, and log completions.</p>
+                            </div>
+                            <div class="scheduler-actions-header">
+                                <button class="btn btn-outline" id="btn-manage-subjects"><i
+                                        class="fa-solid fa-tags"></i> Manage Subjects</button>
+                                <button class="btn btn-primary" id="btn-add-schedule"><i class="fa-solid fa-plus"></i>
+                                    Schedule Study Session</button>
+                            </div>
+                        </div>
+
+                        <!-- Calendar Widget -->
+                        <div class="glass-card calendar-component-card">
+                            <div class="calendar-header">
+                                <div class="calendar-nav">
+                                    <button class="btn-cal-nav" id="btn-prev-week"><i
+                                            class="fa-solid fa-chevron-left"></i></button>
+                                    <h3 id="calendar-header-title">August 10 – August 16, 2026</h3>
+                                    <button class="btn-cal-nav" id="btn-next-week"><i
+                                            class="fa-solid fa-chevron-right"></i></button>
+                                </div>
+                                <div class="view-selectors">
+                                    <button class="btn btn-sm btn-outline active" id="btn-weekly-view">Weekly
+                                        View</button>
+                                    <button class="btn btn-sm btn-outline" id="btn-monthly-view">Monthly
+                                        View</button>
+                                </div>
+                            </div>
+
+                            <!-- Weekly grid container -->
+                            <div class="scheduler-weekly-grid">
+                                <div class="week-days-headers" id="week-headers-row">
+                                    <!-- Dynamic headers -->
+                                </div>
+                                <div class="week-sessions-body" id="week-grid-body">
+                                    <!-- Time tracks or calendar modules -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card all-schedules-card">
+                            <h3>All Scheduled Sessions</h3>
+                            <div class="search-filter-row">
+                                <div class="input-wrapper search-box-wrapper">
+                                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                                    <input type="text" id="scheduler-search" placeholder="Search sessions...">
+                                </div>
+                                <select id="scheduler-filter-subject" class="select-field">
+                                    <option value="all">All Subjects</option>
+                                    <!-- Options populated dynamically -->
+                                </select>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Subject</th>
+                                            <th>Session Title</th>
+                                            <th>Date & Time</th>
+                                            <th>Duration</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="schedules-table-body">
+                                        <!-- Rendered by JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- MODALS -->
+
+    <!-- Schedule Dialog -->
+    <div id="modal-schedule" class="modal-overlay">
+        <div class="glass-card modal-content animate-slide-in">
+            <div class="modal-header">
+                <h3 id="schedule-modal-title">Schedule Study Session</h3>
+                <button class="modal-close" id="btn-close-schedule-modal">&times;</button>
+            </div>
+            <form id="schedule-form">
+                <input type="hidden" id="edit-schedule-id">
+
+                <div class="form-row">
+                    <div class="form-group col-6">
+                        <label for="schedule-subject">Course Subject</label>
+                        <select id="schedule-subject" class="select-field" required>
+                            <!-- Options populated dynamically -->
+                        </select>
+                    </div>
+
+                    <div class="form-group col-6">
+                        <label for="schedule-title">Session Title</label>
+                        <input type="text" id="schedule-title" placeholder="e.g. Calculus Practice" required
+                            class="input-field">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-6">
+                        <label for="schedule-date">Date</label>
+                        <input type="date" id="schedule-date" required class="input-field">
+                    </div>
+
+                    <div class="form-group col-6">
+                        <label for="schedule-time">Start Time</label>
+                        <input type="time" id="schedule-time" required class="input-field">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-6">
+                        <label for="schedule-duration">Duration (Minutes)</label>
+                        <input type="number" id="schedule-duration" value="60" min="10" max="480" required
+                            class="input-field">
+                    </div>
+
+                    <div class="form-group col-6">
+                        <label for="schedule-status">Session Status</label>
+                        <select id="schedule-status" class="select-field">
+                            <option value="upcoming">Upcoming</option>
+                            <option value="completed">Completed</option>
+                            <option value="skipped">Missed/Skipped</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-outline" id="btn-cancel-schedule">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="btn-submit-schedule">Create Session</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Subjects Management Dialog -->
+    <div id="modal-subjects" class="modal-overlay">
+        <div class="glass-card modal-content animate-slide-in" style="max-width: 480px;">
+            <div class="modal-header">
+                <h3>Manage Study Subjects</h3>
+                <button class="modal-close" id="btn-close-subjects-modal">&times;</button>
+            </div>
+            <div class="subjects-manager-body">
+                <!-- Add Subject Form -->
+                <form id="subject-manager-form"
+                    style="margin-bottom: 20px; border-bottom: 1px solid var(--border-glass); padding-bottom: 16px;">
+                    <h4 style="margin-bottom: 12px; font-size: 0.9rem; color: var(--text-primary);">Create Custom
+                        Subject</h4>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div class="form-group">
+                            <label for="new-subject-name">Subject Name</label>
+                            <input type="text" id="new-subject-name" placeholder="e.g. Sociology" required
+                                class="input-field">
+                        </div>
+                        <div class="form-group">
+                            <label for="new-subject-color">Subject Color</label>
+                            <div style="display: flex; gap: 10px; align-items: center;">
+                                <input type="color" id="new-subject-color" value="#8b5cf6"
+                                    style="width: 45px; height: 38px; padding: 2px; border-radius: 8px; border: 1px solid var(--border-glass); background: transparent; cursor: pointer;">
+                                <span style="font-size: 0.8rem; color: var(--text-muted);">Choose Palette Theme
+                                    Color</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm" style="margin-top: 14px;"><i
+                            class="fa-solid fa-plus"></i> Add Subject</button>
+                </form>
+
+                <!-- Existing Subjects List -->
+                <h4 style="margin-bottom: 10px; font-size: 0.9rem; color: var(--text-primary);">Current Subjects
+                    Directory</h4>
+                <div class="subjects-list-container" id="subjects-directory-list"
+                    style="max-height: 180px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; padding-right: 4px;">
+                    <!-- Rendered dynamically -->
+                </div>
+            </div>
+            <div class="modal-actions"
+                style="margin-top: 20px; border-top: 1px solid var(--border-glass); padding-top: 15px;">
+                <button type="button" class="btn btn-primary" id="btn-done-subjects">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Supabase JS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/common.js"></script>
+    <script src="js/scheduler.js"></script>
+</body>
+
+</html>

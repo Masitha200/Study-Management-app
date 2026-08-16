@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aether Academic | Focus Room</title>
+    <!-- Google Fonts: Outfit & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- Ambient background glow elements -->
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+    <div class="ambient-glow glow-3"></div>
+
+    <!-- Main View Wrapper -->
+    <div class="view active" id="view-dashboard">
+        <div class="dashboard-layout">
+
+            <!-- Sidebar Navigation -->
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <div class="logo">
+                        <i class="fa-solid fa-graduation-cap logo-icon"></i>
+                        <span>Aether<span class="gradient-text">Academic</span></span>
+                    </div>
+                    <span class="role-badge" id="sidebar-role-badge">Student</span>
+                </div>
+
+                <nav class="sidebar-menu">
+                    <a href="dashboard.html" class="sidebar-item">
+                        <i class="fa-solid fa-chart-pie"></i> Dashboard
+                    </a>
+                    <a href="scheduler.html" class="sidebar-item">
+                        <i class="fa-solid fa-calendar-days"></i> Study Scheduler
+                    </a>
+                    <a href="tasks.html" class="sidebar-item">
+                        <i class="fa-solid fa-list-check"></i> Tasks Board
+                    </a>
+                    <a href="focus.html" class="sidebar-item active">
+                        <i class="fa-solid fa-clock"></i> Focus Room
+                    </a>
+                    <a href="settings.html" class="sidebar-item">
+                        <i class="fa-solid fa-gear"></i> Settings
+                    </a>
+                    <!-- Only shown to Admin -->
+                    <a href="admin.html" class="sidebar-item admin-only" id="sidebar-admin-link" style="display: none;">
+                        <i class="fa-solid fa-envelope-open-text"></i> Admin Panel
+                    </a>
+                </nav>
+
+                <!-- User context block -->
+                <div class="sidebar-footer">
+                    <div class="user-profile-summary">
+                        <div class="user-avatar" id="nav-user-avatar">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <div class="user-details">
+                            <h4 id="nav-username">John Doe</h4>
+                            <p id="nav-useremail">student@learn.com</p>
+                        </div>
+                    </div>
+                    <a href="#" class="logout-btn" id="btn-logout" title="Sign Out">
+                        <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+                    </a>
+                </div>
+            </aside>
+
+            <!-- Main Workspace Area -->
+            <main class="dashboard-main">
+                <!-- Top bar with notification/system announcement message -->
+                <header class="dashboard-topbar">
+                    <div class="announcement-marquee" id="dynamic-announcement">
+                        <i class="fa-solid fa-bullhorn text-accent animate-bounce"></i>
+                        <span id="announcement-text">Welcome to your academic launchpad...</span>
+                    </div>
+                    <div class="topbar-actions">
+                        <div class="avatar-dropdown-trigger">
+                            <span class="greeting">Hi, <strong id="greeting-name">Student</strong>!</span>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="tab-content-container">
+
+                    <!-- TAB: FOCUS ROOM -->
+                    <section id="tab-focus" class="tab-content active">
+                        <div class="section-header-row" style="margin-bottom: 25px;">
+                            <div>
+                                <h2>Focus Room</h2>
+                                <p>Tune out distractions. Use Pomodoro study-break methods and ambient audio streams.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="pomodoro-workspace">
+                            <!-- Left Column: Clock Timer Widget (1.2fr width) -->
+                            <div class="glass-card pomodoro-runner-card" style="padding: 40px;">
+                                <!-- Timer mode buttons -->
+                                <div class="timer-config-modes">
+                                    <button class="timer-mode-btn active" id="btn-mode-pomodoro"
+                                        data-time="25">Pomodoro</button>
+                                    <button class="timer-mode-btn" id="btn-mode-short" data-time="5">Short
+                                        Break</button>
+                                    <button class="timer-mode-btn" id="btn-mode-long" data-time="15">Long
+                                        Break</button>
+                                </div>
+
+                                <!-- Circular Progress Area -->
+                                <div class="pomodoro-circle-hud">
+                                    <svg class="progress-ring-svg" width="300" height="300"
+                                        style="transform: rotate(-90deg);">
+                                        <circle class="ring-circle-bg" cx="150" cy="150" r="130" fill="transparent"
+                                            stroke="rgba(255, 255, 255, 0.03)" stroke-width="8" />
+                                        <circle id="timer-progress-ring" class="ring-circle-fill ring-fill" cx="150"
+                                            cy="150" r="130" fill="transparent" stroke="var(--primary-accent)"
+                                            stroke-width="8" stroke-linecap="round" stroke-dasharray="816.8"
+                                            stroke-dashoffset="0" />
+                                    </svg>
+                                    <div class="hud-content">
+                                        <h1 id="timer-time-display">25:00</h1>
+                                        <p id="timer-subtitle-status"
+                                            style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; margin-top: 8px; letter-spacing: 0.05em;">
+                                            Deep Study Session</p>
+                                    </div>
+                                </div>
+
+                                <!-- Controller buttons -->
+                                <div class="timer-controllers">
+                                    <button class="btn-outline-round" id="btn-timer-reset" title="Restart Session"><i
+                                            class="fa-solid fa-arrow-rotate-left"></i></button>
+                                    <button class="btn-timer-play" id="btn-timer-toggle" title="Start/Pause Interval">
+                                        <i class="fa-solid fa-play" id="timer-play-icon"></i>
+                                    </button>
+                                    <button class="btn-outline-round" id="btn-timer-skip" title="Skip Session"><i
+                                            class="fa-solid fa-forward"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Right Column: Stacked Configuration & Focus Logs (1fr width) -->
+                            <div class="focus-assistant-container">
+                                <!-- Focus Configuration -->
+                                <div class="glass-card focus-task-card">
+                                    <h3><i class="fa-solid fa-sliders text-accent" style="margin-right: 8px;"></i> Focus
+                                        Configuration</h3>
+                                    <div class="form-group" style="margin-top: 15px;">
+                                        <label for="focus-session-title">Study Subject</label>
+                                        <select id="focus-session-title" class="select-field">
+                                            <!-- Dynamically populated subjects -->
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="focus-task-linked">Linked Task assignment</label>
+                                        <select id="focus-task-linked" class="select-field">
+                                            <option value="none">No specific task selected</option>
+                                            <!-- Rendered dynamically -->
+                                        </select>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 0;">
+                                        <label for="timer-ambient-sound">Ambient Backing Audio</label>
+                                        <select id="timer-ambient-sound" class="select-field">
+                                            <option value="none">No Sound (Silent)</option>
+                                            <option value="rain">Soft Rain Shower</option>
+                                            <option value="library">Academic Library Whisper</option>
+                                            <option value="lofi">Lofi Beats Rhythm</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Focus Session Log History -->
+                                <div class="glass-card ambient-status-card">
+                                    <h3><i class="fa-solid fa-clock-rotate-left text-accent"
+                                            style="margin-right: 8px;"></i> Today's Focus Log</h3>
+                                    <div class="ambient-activities-logged" id="today-focus-sessions-list"
+                                        style="margin-top: 15px;">
+                                        <!-- Rendered dynamically -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- AUDIO STREAM STUBS -->
+    <audio id="ambient-audio-rain" loop src="https://assets.mixkit.co/active_storage/sfx/2501/2501-84.wav"></audio>
+    <audio id="ambient-audio-library" loop src="https://assets.mixkit.co/active_storage/sfx/2437/2437-84.wav"></audio>
+    <audio id="ambient-audio-lofi" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+    <!-- Supabase JS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/common.js"></script>
+    <script src="js/focus.js"></script>
+</body>
+
+</html>

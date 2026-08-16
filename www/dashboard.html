@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aether Academic | Dashboard Overview</title>
+    <!-- Google Fonts: Outfit & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- Ambient background glow elements -->
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+    <div class="ambient-glow glow-3"></div>
+
+    <!-- Main Application Wrapper -->
+    <div class="view active" id="view-dashboard">
+        <div class="dashboard-layout">
+
+            <!-- Sidebar Navigation -->
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <div class="logo">
+                        <i class="fa-solid fa-graduation-cap logo-icon"></i>
+                        <span>Aether<span class="gradient-text">Academic</span></span>
+                    </div>
+                    <span class="role-badge" id="sidebar-role-badge">Student</span>
+                </div>
+
+                <nav class="sidebar-menu">
+                    <a href="dashboard.html" class="sidebar-item active">
+                        <i class="fa-solid fa-chart-pie"></i> Dashboard
+                    </a>
+                    <a href="scheduler.html" class="sidebar-item">
+                        <i class="fa-solid fa-calendar-days"></i> Study Scheduler
+                    </a>
+                    <a href="tasks.html" class="sidebar-item">
+                        <i class="fa-solid fa-list-check"></i> Tasks Board
+                    </a>
+                    <a href="focus.html" class="sidebar-item">
+                        <i class="fa-solid fa-clock"></i> Focus Room
+                    </a>
+                    <a href="settings.html" class="sidebar-item">
+                        <i class="fa-solid fa-gear"></i> Settings
+                    </a>
+                    <!-- Only shown to Admin -->
+                    <a href="admin.html" class="sidebar-item admin-only" id="sidebar-admin-link" style="display: none;">
+                        <i class="fa-solid fa-envelope-open-text"></i> Admin Panel
+                    </a>
+                </nav>
+
+                <!-- User context block -->
+                <div class="sidebar-footer">
+                    <div class="user-profile-summary">
+                        <div class="user-avatar" id="nav-user-avatar">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <div class="user-details">
+                            <h4 id="nav-username">John Doe</h4>
+                            <p id="nav-useremail">student@learn.com</p>
+                        </div>
+                    </div>
+                    <a href="#" class="logout-btn" id="btn-logout" title="Sign Out">
+                        <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+                    </a>
+                </div>
+            </aside>
+
+            <!-- Main Workspace Area -->
+            <main class="dashboard-main">
+                <!-- Top bar with notification/system announcement message -->
+                <header class="dashboard-topbar">
+                    <div class="announcement-marquee" id="dynamic-announcement">
+                        <i class="fa-solid fa-bullhorn text-accent animate-bounce"></i>
+                        <span id="announcement-text">Welcome to your academic launchpad...</span>
+                    </div>
+                    <div class="topbar-actions">
+                        <div class="avatar-dropdown-trigger">
+                            <span class="greeting">Hi, <strong id="greeting-name">Student</strong>!</span>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="tab-content-container">
+
+                    <!-- TAB: OVERVIEW -->
+                    <section id="tab-overview" class="tab-content active">
+                        <div class="dashboard-welcome">
+                            <h2>Aether Overview</h2>
+                            <p>Welcome back! Check your accomplishments and planned sessions for today.</p>
+                        </div>
+
+                        <!-- Stat Grid -->
+                        <div class="stat-grid">
+                            <div class="glass-card stat-card">
+                                <div class="stat-icon-bg bg-purple">
+                                    <i class="fa-solid fa-clock"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <span>Total Study Hours</span>
+                                    <h2 id="stat-study-hours">0.0h</h2>
+                                </div>
+                            </div>
+
+                            <div class="glass-card stat-card">
+                                <div class="stat-icon-bg bg-green">
+                                    <i class="fa-solid fa-calendar-days"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <span>Scheduled Sessions</span>
+                                    <h2 id="stat-sessions-count">0</h2>
+                                </div>
+                            </div>
+
+                            <div class="glass-card stat-card">
+                                <div class="stat-icon-bg bg-blue">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <span>Tasks Completed</span>
+                                    <h2 id="stat-completed-tasks">0</h2>
+                                </div>
+                            </div>
+
+                            <div class="glass-card stat-card">
+                                <div class="stat-icon-bg bg-orange">
+                                    <i class="fa-solid fa-ranking-star"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <span>Productivity Rank</span>
+                                    <h2 id="stat-productivity-rank">Initiate</h2>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="charts-and-todays-grid">
+                            <!-- Visual insights (Subject distributions) -->
+                            <div class="glass-card charts-box">
+                                <h3>Subject Focus Breakdown</h3>
+                                <div class="custom-chart-container">
+                                    <div id="no-chart-data" class="empty-state">
+                                        <i class="fa-solid fa-chart-column"></i>
+                                        <p>Start study sessions to view focus breakdown.</p>
+                                    </div>
+                                    <div id="chart-bars" class="chart-bars-wrap hidden">
+                                        <!-- Render dynamic bars -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Today's Schedule Card -->
+                            <div class="glass-card todays-schedule-card">
+                                <div class="todays-header">
+                                    <h3>Today's Schedule</h3>
+                                    <a href="scheduler.html" class="btn btn-sm btn-primary">Go to Planner</a>
+                                </div>
+                                <div class="todays-scheduler-list" id="todays-sessions-list">
+                                    <!-- Dynamic rendering of today's schedule items -->
+                                    <div class="empty-state">
+                                        <i class="fa-regular fa-calendar-xmark text-muted"></i>
+                                        <p>No study sessions scheduled for today.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Focus Prompt Card -->
+                        <div class="glass-card quick-focus-card">
+                            <div class="quick-focus-content">
+                                <div class="quick-focus-text">
+                                    <span class="chip-accent">Pomodoro Tool</span>
+                                    <h3>Ready to dive into a deep work block?</h3>
+                                    <p>Enter the Focus Room to begin a structured 25-minute Pomodoro session with
+                                        focus-support sounds.</p>
+                                </div>
+                                <a href="focus.html" class="btn btn-primary">
+                                    <i class="fa-solid fa-hourglass-start"></i> Open Focus Room
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Supabase JS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Common JS -->
+    <script src="js/common.js"></script>
+    <!-- Dashboard JS -->
+    <script src="js/dashboard.js"></script>
+</body>
+
+</html>

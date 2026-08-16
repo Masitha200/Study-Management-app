@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aether Academic | Premium Study Scheduler & Focus Hub</title>
+    <meta name="description"
+        content="A premium glassmorphism study scheduler, Pomodoro tracker, and student hub for serious learners.">
+    <!-- Google Fonts: Outfit & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- Ambient background glow elements -->
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+    <div class="ambient-glow glow-3"></div>
+
+    <!-- Main View Wrapper -->
+    <div class="view active" id="view-landing">
+        <header class="navbar">
+            <div class="logo">
+                <i class="fa-solid fa-graduation-cap logo-icon"></i>
+                <span>Aether<span class="gradient-text">Academic</span></span>
+            </div>
+            <nav class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#about">About</a>
+                <button class="btn btn-secondary btn-login-trigger">Open Planner</button>
+            </nav>
+            <button class="landing-menu-btn" id="btn-landing-menu-toggle" aria-label="Toggle Navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </header>
+
+        <main class="hero-section">
+            <div class="hero-content">
+                <div class="badge"><span class="badge-dot"></span> Next-Gen Study Planner</div>
+                <h1>Architect Your <span class="gradient-text animate-pulse">Academic Success</span></h1>
+                <p class="hero-subtext">A premium study scheduler, interactive Task Kanban, and Pomodoro focus
+                    engine built for high-achieving minds. Seamlessly organize, track, and elevate your learning
+                    path.</p>
+                <div class="hero-actions">
+                    <button class="btn btn-primary btn-get-started">Start Planning Free <i
+                            class="fa-solid fa-arrow-right"></i></button>
+                    <button class="btn btn-outline btn-demo-login">Try Live Demo <i
+                            class="fa-solid fa-play"></i></button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-card-mini">
+                        <h3>10k+</h3>
+                        <span>Active Students</span>
+                    </div>
+                    <div class="stat-card-mini">
+                        <h3>2.5M+</h3>
+                        <span>Hours Focused</span>
+                    </div>
+                    <div class="stat-card-mini">
+                        <h3>98%</h3>
+                        <span>Success Rate</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-preview-container">
+                <div class="glass-card mockup-card">
+                    <div class="mockup-header">
+                        <div class="mockup-dots"><span class="dot"></span><span class="dot"></span><span
+                                class="dot"></span></div>
+                        <div class="mockup-title"><i class="fa-solid fa-calendar-days"></i> Study Scheduler</div>
+                    </div>
+                    <div class="mockup-body">
+                        <div class="mockup-item">
+                            <div class="item-time">09:00 AM</div>
+                            <div class="item-bar math"></div>
+                            <div class="item-info">
+                                <h4>Advanced Calculus II</h4>
+                                <p>Prep for Midterm • 2 hrs</p>
+                            </div>
+                        </div>
+                        <div class="mockup-item">
+                            <div class="item-time">01:30 PM</div>
+                            <div class="item-bar physics"></div>
+                            <div class="item-info">
+                                <h4>Quantum Mechanics</h4>
+                                <p>Solve Homework Problems • 1.5 hrs</p>
+                            </div>
+                        </div>
+                        <div class="mockup-timer">
+                            <div class="timer-c-ring">
+                                <div class="timer-c-text">25:00</div>
+                                <span class="timer-status">Deep Focus</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <section id="features" class="features-section">
+            <h2>Supercharge Your Study Workflow</h2>
+            <p class="section-desc">Designed with custom tools to streamline every aspect of your learning routine.</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon schedule"><i class="fa-solid fa-calendar-check"></i></div>
+                    <h3>Smart Scheduler</h3>
+                    <p>Plan weekly or monthly study modules with customized reminders, color-coding, and status
+                        updating.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon timer"><i class="fa-solid fa-stopwatch"></i></div>
+                    <h3>Pomodoro Engine</h3>
+                    <p>Configurable study-break rhythms with ambient dark-mode focus states and integration with
+                        tasks.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon kanban"><i class="fa-solid fa-clipboard-list"></i></div>
+                    <h3>Task Kanban</h3>
+                    <p>Sort assignments and workloads by urgency using a customized, fluid drag-and-drop-style
+                        checklist.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon auth"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3>Secure Accounts</h3>
+                    <p>Synchronize your personal planner across multiple browser sessions with customized auth
+                        roles.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="landing-footer">
+            <p>&copy; 2026 Aether Academic. Crafted for academic excellence.</p>
+        </footer>
+    </div>
+
+    <!-- Supabase JS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Common JS -->
+    <script src="js/common.js"></script>
+    <!-- Landing JS -->
+    <script src="js/landing.js"></script>
+</body>
+
+</html>

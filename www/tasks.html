@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aether Academic | Tasks Board</title>
+    <!-- Google Fonts: Outfit & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- Ambient background glow elements -->
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+    <div class="ambient-glow glow-3"></div>
+
+    <!-- Main Application Wrapper -->
+    <div class="view active" id="view-dashboard">
+        <div class="dashboard-layout">
+
+            <!-- Sidebar Navigation -->
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <div class="logo">
+                        <i class="fa-solid fa-graduation-cap logo-icon"></i>
+                        <span>Aether<span class="gradient-text">Academic</span></span>
+                    </div>
+                    <span class="role-badge" id="sidebar-role-badge">Student</span>
+                </div>
+
+                <nav class="sidebar-menu">
+                    <a href="dashboard.html" class="sidebar-item">
+                        <i class="fa-solid fa-chart-pie"></i> Dashboard
+                    </a>
+                    <a href="scheduler.html" class="sidebar-item">
+                        <i class="fa-solid fa-calendar-days"></i> Study Scheduler
+                    </a>
+                    <a href="tasks.html" class="sidebar-item active">
+                        <i class="fa-solid fa-list-check"></i> Tasks Board
+                    </a>
+                    <a href="focus.html" class="sidebar-item">
+                        <i class="fa-solid fa-clock"></i> Focus Room
+                    </a>
+                    <a href="settings.html" class="sidebar-item">
+                        <i class="fa-solid fa-gear"></i> Settings
+                    </a>
+                    <!-- Only shown to Admin -->
+                    <a href="admin.html" class="sidebar-item admin-only" id="sidebar-admin-link" style="display: none;">
+                        <i class="fa-solid fa-envelope-open-text"></i> Admin Panel
+                    </a>
+                </nav>
+
+                <!-- User context block -->
+                <div class="sidebar-footer">
+                    <div class="user-profile-summary">
+                        <div class="user-avatar" id="nav-user-avatar">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <div class="user-details">
+                            <h4 id="nav-username">John Doe</h4>
+                            <p id="nav-useremail">student@learn.com</p>
+                        </div>
+                    </div>
+                    <a href="#" class="logout-btn" id="btn-logout" title="Sign Out">
+                        <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+                    </a>
+                </div>
+            </aside>
+
+            <!-- Main Workspace Area -->
+            <main class="dashboard-main">
+                <!-- Top bar with notification/system announcement message -->
+                <header class="dashboard-topbar">
+                    <div class="announcement-marquee" id="dynamic-announcement">
+                        <i class="fa-solid fa-bullhorn text-accent animate-bounce"></i>
+                        <span id="announcement-text">Welcome to your academic launchpad...</span>
+                    </div>
+                    <div class="topbar-actions">
+                        <div class="avatar-dropdown-trigger">
+                            <span class="greeting">Hi, <strong id="greeting-name">Student</strong>!</span>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="tab-content-container">
+
+                    <!-- TAB: TASKS BOARD -->
+                    <section id="tab-tasks" class="tab-content active">
+                        <div class="section-header-row">
+                            <div>
+                                <h2>Task Board</h2>
+                                <p>Organize assignments, syllabus units, and study targets using key priorities.</p>
+                            </div>
+                            <button class="btn btn-primary" id="btn-add-task"><i class="fa-solid fa-plus"></i> Add
+                                New Task</button>
+                        </div>
+
+                        <!-- Kanban Layout -->
+                        <div class="kanban-board-container">
+
+                            <!-- Column: To Do -->
+                            <div class="kanban-column" id="col-todo" data-status="todo">
+                                <div class="column-header">
+                                    <h4><span class="header-indicator todo"></span> To Do</h4>
+                                    <span class="column-count" id="todo-count">0</span>
+                                </div>
+                                <div class="kanban-cards-wrapper" id="tasks-todo-list">
+                                    <!-- Dynamic tasks -->
+                                </div>
+                            </div>
+
+                            <!-- Column: In Progress -->
+                            <div class="kanban-column" id="col-progress" data-status="progress">
+                                <div class="column-header">
+                                    <h4><span class="header-indicator progress"></span> In Progress</h4>
+                                    <span class="column-count" id="progress-count">0</span>
+                                </div>
+                                <div class="kanban-cards-wrapper" id="tasks-progress-list">
+                                    <!-- Dynamic tasks -->
+                                </div>
+                            </div>
+
+                            <!-- Column: Completed -->
+                            <div class="kanban-column" id="col-done" data-status="done">
+                                <div class="column-header">
+                                    <h4><span class="header-indicator done"></span> Completed</h4>
+                                    <span class="column-count" id="done-count">0</span>
+                                </div>
+                                <div class="kanban-cards-wrapper" id="tasks-done-list">
+                                    <!-- Dynamic tasks -->
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- MODALS -->
+
+    <!-- Task Dialog -->
+    <div id="modal-task" class="modal-overlay">
+        <div class="glass-card modal-content animate-slide-in">
+            <div class="modal-header">
+                <h3 id="task-modal-title">Create Task Card</h3>
+                <button class="modal-close" id="btn-close-task-modal">&times;</button>
+            </div>
+            <form id="task-form">
+                <input type="hidden" id="edit-task-id">
+
+                <div class="form-group">
+                    <label for="task-title">Task Description</label>
+                    <input type="text" id="task-title" placeholder="e.g., Read Physics Chapter 4, submit lab report"
+                        required class="input-field">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-6">
+                        <label for="task-priority">Priority Level</label>
+                        <select id="task-priority" class="select-field">
+                            <option value="low">Low Priority</option>
+                            <option value="medium" selected>Medium Priority</option>
+                            <option value="high">High Priority</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-6">
+                        <label for="task-due">Due Date</label>
+                        <input type="date" id="task-due" required class="input-field">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="task-status">Status Column</label>
+                    <select id="task-status" class="select-field">
+                        <option value="todo">To Do</option>
+                        <option value="progress">In Progress</option>
+                        <option value="done">Completed</option>
+                    </select>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-outline" id="btn-cancel-task">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="btn-submit-task">Create Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Supabase JS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/common.js"></script>
+    <script src="js/tasks.js"></script>
+</body>
+
+</html>
