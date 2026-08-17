@@ -1,0 +1,63 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportHeight="108"
+    android:viewportWidth="108">
+
+    <!-- Graduation Cap Icon - Centered in safe zone (24-84 area) -->
+    <!-- Cap base (diamond/rhombus shape) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,38L78,50L54,62L30,50Z" />
+
+    <!-- Cap board (top flat part with slight 3D depth) -->
+    <path
+        android:fillColor="#E8E0FF"
+        android:pathData="M54,38L78,50L54,48L30,50Z" />
+
+    <!-- Tassel string from center top to right -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFD700"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:pathData="M54,50L54,44L66,44" />
+
+    <!-- Tassel end (dangling piece) -->
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M66,41.5L66,48.5"
+        android:strokeColor="#FFD700"
+        android:strokeWidth="2.2"
+        android:strokeLineCap="round" />
+
+    <!-- Tassel knob -->
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M66,41 A1.5,1.5 0 1,1 66,41.01Z" />
+
+    <!-- Left pillar of the cap base (lower part / body of mortarboard) -->
+    <path
+        android:fillColor="#FFFFFFCC"
+        android:pathData="M38,52L38,64C38,64 46,70 54,70C62,70 70,64 70,64L70,52L54,62Z" />
+
+    <!-- Inner shadow on the body -->
+    <path
+        android:fillColor="#00000015"
+        android:pathData="M38,52L54,62L70,52L70,56L54,66L38,56Z" />
+
+    <!-- Small book icon below the cap for "Academic" emphasis -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="0.5"
+        android:pathData="M46,73L46,78C46,78 50,76.5 54,78C58,76.5 62,78 62,78L62,73C62,73 58,71.5 54,73C50,71.5 46,73 46,73Z" />
+
+    <!-- Book spine -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="0.8"
+        android:pathData="M54,73L54,78" />
+
+</vector>

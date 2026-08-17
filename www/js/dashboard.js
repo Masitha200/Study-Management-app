@@ -2,6 +2,8 @@
  * Aether Academic - Dashboard Overview Controls
  */
 const Dashboard = {
+    _lastDate: null,
+
     async init() {
         // Sync database from Supabase
         if (supabaseClient) {
@@ -14,6 +16,37 @@ const Dashboard = {
         // Calculate and render dashboard stats
         this.updateMetrics();
         this.renderOverviewLists();
+
+        // Start auto-refresh watcher for date changes
+        this.startAutoRefresh();
+    },
+
+    /** Auto-refresh: re-render when the date changes (midnight rollover) or app regains focus */
+    startAutoRefresh() {
+        // Track the current date
+        this._lastDate = new Date().toDateString();
+
+        // Check every 30 seconds if the date rolled over
+        setInterval(() => {
+            const currentDate = new Date().toDateString();
+            if (currentDate !== this._lastDate) {
+                this._lastDate = currentDate;
+                this.updateMetrics();
+                this.renderOverviewLists();
+            }
+        }, 30000);
+
+        // Also refresh when user comes back to the app (tab/app visibility change)
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') {
+                const currentDate = new Date().toDateString();
+                if (currentDate !== this._lastDate) {
+                    this._lastDate = currentDate;
+                    this.updateMetrics();
+                    this.renderOverviewLists();
+                }
+            }
+        });
     },
 
     updateMetrics() {
@@ -111,8 +144,9 @@ const Dashboard = {
         const user = AppState.currentUser;
         if (!user) return;
 
-        // Baseline study center standard target date context
-        const todayStr = "2026-08-15";
+        // Get today's date dynamically in YYYY-MM-DD format
+        const now = new Date();
+        const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
         const schedules = Store.getAllSchedules().filter(s => s.userId === user.id && s.date === todayStr);
 
         if (schedules.length === 0) {

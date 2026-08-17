@@ -3203,3 +3203,241 @@ input[type="checkbox"]:checked+.chk-slider::before {
 .light-theme.low-perf .glass-card {
     background: #ffffff !important;
 }
+
+/* ==========================================================================
+   MOBILE FULL-SCREEN CARD-LESS LAYOUT
+   Remove card containers on phone screens — content fills full width
+   ========================================================================== */
+@media (max-width: 768px) {
+
+    /* Strip glass-card visual treatment entirely */
+    .glass-card {
+        background: transparent !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+
+    /* Remove padding from major content wrappers so content is edge-to-edge */
+    .tab-content-container {
+        padding: 12px 0 !important;
+    }
+
+    .dashboard-main {
+        padding: 0 !important;
+    }
+
+    /* Stat grid — full width, no gaps, stacked */
+    .stat-grid {
+        grid-template-columns: 1fr !important;
+        gap: 0 !important;
+        margin-bottom: 16px !important;
+    }
+
+    .stat-card {
+        padding: 16px 20px !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+    }
+
+    /* Charts & Today's grid — full bleed */
+    .charts-and-todays-grid {
+        gap: 0 !important;
+        margin-bottom: 0 !important;
+    }
+
+    .charts-box,
+    .todays-schedule-card {
+        padding: 20px !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+    }
+
+    /* Quick focus card — edge-to-edge */
+    .quick-focus-card {
+        border-radius: 0 !important;
+        padding: 20px !important;
+        background: linear-gradient(135deg, rgba(88, 38, 203, 0.15) 0%, rgba(12, 12, 22, 0.4) 100%) !important;
+        border-top: 1px solid rgba(139, 92, 246, 0.15) !important;
+    }
+
+    /* Calendar card — no card wrapper */
+    .calendar-component-card {
+        padding: 12px 16px !important;
+        border-radius: 0 !important;
+    }
+
+    /* All schedules card — full width */
+    .all-schedules-card {
+        padding: 16px !important;
+    }
+
+    /* Kanban columns — full bleed */
+    .kanban-column {
+        border-radius: 12px !important;
+    }
+
+    /* Pomodoro card — full width */
+    .pomodoro-runner-card {
+        border-radius: 0 !important;
+    }
+
+    /* Focus assistant cards */
+    .focus-task-card,
+    .ambient-status-card {
+        padding: 16px 20px !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+    }
+
+    /* Section headers — give them horizontal padding for readability */
+    .dashboard-welcome,
+    .section-header-row {
+        padding: 0 20px !important;
+    }
+
+    /* Settings cards — remove card wrapper */
+    .settings-card,
+    .subjects-settings-card {
+        border-radius: 0 !important;
+        padding: 16px 20px !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+    }
+
+    /* Admin cards — full width */
+    .admin-top-widgets {
+        gap: 0 !important;
+    }
+
+    .sys-announcements-card,
+    .sys-metrics-card,
+    .system-users-card {
+        padding: 16px 20px !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+    }
+
+    /* Header separators between sections for visual structure */
+    .charts-box h3,
+    .todays-schedule-card h3,
+    .all-schedules-card h3 {
+        font-size: 1.1rem !important;
+        padding-bottom: 12px !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+        text-align: center !important;
+    }
+
+    /* ===== CENTER ALL CONTENT ON MOBILE ===== */
+
+    /* Dashboard welcome / section headers centered */
+    .dashboard-welcome,
+    .section-header-row {
+        text-align: center !important;
+    }
+
+    .section-header-row {
+        align-items: center !important;
+    }
+
+    /* Stat cards — center icon + text */
+    .stat-card {
+        justify-content: center !important;
+        text-align: center !important;
+    }
+
+    .stat-info {
+        text-align: center !important;
+    }
+
+    /* Quick focus — center content */
+    .quick-focus-content {
+        text-align: center !important;
+        align-items: center !important;
+    }
+
+    .quick-focus-text {
+        text-align: center !important;
+    }
+
+    .chip-accent {
+        align-self: center !important;
+    }
+
+    /* Today's header centered */
+    .todays-header {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 12px !important;
+        text-align: center !important;
+    }
+
+    /* Today's session items — centered */
+    .todays-session-item {
+        justify-content: center !important;
+    }
+
+    /* Empty states — already flex centered but ensure text-align */
+    .empty-state {
+        text-align: center !important;
+    }
+
+    /* Calendar header centered */
+    .calendar-header {
+        text-align: center !important;
+    }
+
+    /* Kanban column headers centered */
+    .column-header {
+        justify-content: center !important;
+        text-align: center !important;
+        gap: 12px !important;
+    }
+
+    /* Focus Room — already centered, ensure timer modes too */
+    .timer-config-modes {
+        justify-content: center !important;
+    }
+
+    .timer-sound-selector {
+        justify-content: center !important;
+    }
+
+    /* Focus assistant card headings */
+    .focus-task-card h3,
+    .ambient-status-card h3 {
+        text-align: center !important;
+    }
+}
+
+/* Extra small phones — tighter spacing */
+@media (max-width: 420px) {
+
+    .stat-card {
+        padding: 14px 16px !important;
+    }
+
+    .charts-box,
+    .todays-schedule-card,
+    .quick-focus-card,
+    .focus-task-card,
+    .ambient-status-card,
+    .settings-card,
+    .subjects-settings-card,
+    .sys-announcements-card,
+    .sys-metrics-card,
+    .system-users-card,
+    .all-schedules-card {
+        padding: 14px 16px !important;
+    }
+
+    .dashboard-welcome,
+    .section-header-row {
+        padding: 0 16px !important;
+    }
+
+    .dashboard-welcome h2 {
+        font-size: 1.5rem !important;
+    }
+
+    .section-header-row h2 {
+        font-size: 1.5rem !important;
+    }
+}
