@@ -161,12 +161,18 @@
                                             placeholder="e.g. John Doe">
                                     </div>
                                     <div class="form-group" style="margin-bottom: 15px;">
-                                        <label for="settings-email">Email Address</label>
+                                        <label for="settings-email"
+                                            style="display: flex; align-items: center; gap: 8px;">
+                                            Email Address
+                                            <span
+                                                style="font-size: 0.6rem; padding: 2px 6px; border-radius: 4px; background: rgba(249, 115, 22, 0.12); border: 1px solid rgba(249, 115, 22, 0.3); color: #f97316; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; display: inline-block;">Coming
+                                                Soon</span>
+                                        </label>
                                         <input type="email" id="settings-email" disabled class="input-field"
                                             style="opacity: 0.6; cursor: not-allowed;" placeholder="student@learn.com">
                                         <span
-                                            style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; display: block;">Registered
-                                            email address cannot be changed.</span>
+                                            style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; display: block;">Changing
+                                            email address feature is coming soon.</span>
                                     </div>
                                     <button type="submit" class="btn btn-primary" style="margin-top: 10px;"><i
                                             class="fa-solid fa-save"></i> Save Profile Details</button>
@@ -243,6 +249,116 @@
                                 <div class="subjects-list-container" id="settings-subjects-directory-list"
                                     style="max-height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 4px;">
                                     <!-- Populated dynamically via settings.js -->
+                                </div>
+                            </div>
+
+                            <!-- System Settings Card -->
+                            <div class="glass-card preferences-settings-card" style="padding: 30px;">
+                                <h3 style="margin-bottom: 5px;"><i class="fa-solid fa-gauge-high gradient-text"
+                                        style="margin-right: 8px;"></i> System Settings</h3>
+                                <p class="text-muted" style="font-size: 0.8rem; margin-bottom: 20px;">Tune the theme and
+                                    performance settings of your application.</p>
+
+                                <div style="display: flex; flex-direction: column; gap: 14px;">
+                                    <!-- Setting 1: Theme Mode Switcher -->
+                                    <div class="form-group"
+                                        style="display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-glass); border-radius: 12px; margin-bottom: 0;">
+                                        <div style="flex: 1; padding-right: 15px;">
+                                            <label for="theme-mode-toggle"
+                                                style="margin-bottom: 2px; font-weight: 600; color: var(--text-primary); cursor: pointer;">Light
+                                                Theme Mode</label>
+                                            <span class="text-muted"
+                                                style="font-size: 0.75rem; display: block; line-height: 1.4;">Switch
+                                                from default dark mode to a bright, clean layout theme.</span>
+                                        </div>
+                                        <label class="switch-container"
+                                            style="display: block; position: relative; width: 44px; height: 22px; flex-shrink: 0; cursor: pointer; margin: 0;">
+                                            <input type="checkbox" id="theme-mode-toggle" style="display: none;">
+                                            <div class="chk-slider"
+                                                style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255, 255, 255, 0.1); border: 1px solid var(--border-glass); border-radius: 22px; transition: all 0.3s ease;">
+                                            </div>
+                                        </label>
+                                    </div>
+
+                                    <!-- Setting 2: Battery Saver Toggle -->
+                                    <div class="form-group"
+                                        style="display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-glass); border-radius: 12px; margin-bottom: 0;">
+                                        <div style="flex: 1; padding-right: 15px;">
+                                            <label for="performance-mode-toggle"
+                                                style="margin-bottom: 2px; font-weight: 600; color: var(--text-primary); cursor: pointer;">Battery
+                                                Saver / Smooth Mode</label>
+                                            <span class="text-muted"
+                                                style="font-size: 0.75rem; display: block; line-height: 1.4;">Turn this
+                                                on if your phone runs slow or lags. It turns off heavy visual effects
+                                                and animations to make the app super fast.</span>
+                                        </div>
+                                        <label class="switch-container"
+                                            style="display: block; position: relative; width: 44px; height: 22px; flex-shrink: 0; cursor: pointer; margin: 0;">
+                                            <input type="checkbox" id="performance-mode-toggle" style="display: none;">
+                                            <div class="chk-slider"
+                                                style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255, 255, 255, 0.1); border: 1px solid var(--border-glass); border-radius: 22px; transition: all 0.3s ease;">
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Version Info & Changelog Card -->
+                            <div class="glass-card version-changelog-card" style="padding: 30px; margin-top: 24px;">
+                                <h3 style="margin-bottom: 5px;"><i class="fa-solid fa-code-branch gradient-text"
+                                        style="margin-right: 8px;"></i> App Version & Updates</h3>
+                                <p class="text-muted" style="font-size: 0.8rem; margin-bottom: 20px;">Review release
+                                    versions and features in simple terms.</p>
+
+                                <div style="display: flex; flex-direction: column; gap: 16px;">
+                                    <!-- Version V1.0 (Current) -->
+                                    <div
+                                        style="padding: 14px; background: rgba(139, 92, 246, 0.04); border: 1px solid rgba(139, 92, 246, 0.2); border-radius: 12px;">
+                                        <div
+                                            style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                                            <span
+                                                style="font-weight: 700; color: var(--text-primary); font-size: 0.9rem;">Version
+                                                1.0 (Official Release)</span>
+                                            <span
+                                                style="font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); color: var(--emerald-accent); font-weight: 700; text-transform: uppercase;">Active</span>
+                                        </div>
+                                        <ul
+                                            style="font-size: 0.78rem; color: var(--text-secondary); padding-left: 16px; margin: 0; line-height: 1.5; display: flex; flex-direction: column; gap: 6px;">
+                                            <li><strong>Smart App Reminders:</strong> Set alerts that sound and show the
+                                                Aether icon on your phone, even if the app is closed.</li>
+                                            <li><strong>Visual & Speed Settings:</strong> Toggle between Light and Dark
+                                                Mode, and utilize Battery Saver Mode to stop lagging on older phones.
+                                            </li>
+                                            <li><strong>Reschedule Missed Sessions:</strong> Skip sessions and move them
+                                                to a new day/time instantly without losing past logs.</li>
+                                            <li><strong>Clear Study Calendar:</strong> Clean layout prevents study text
+                                                from overlapping or clipping.</li>
+                                            <li><strong>Low-End Device Optimization:</strong> Disable heavy visual
+                                                effects and background animations to keep performance smooth and
+                                                lag-free on older devices.</li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Version Demo (Previous) -->
+                                    <div
+                                        style="padding: 14px; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-glass); border-radius: 12px; opacity: 0.75;">
+                                        <div
+                                            style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                                            <span
+                                                style="font-weight: 600; color: var(--text-secondary); font-size: 0.9rem;">Initial
+                                                Demo Build</span>
+                                            <span
+                                                style="font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-glass); color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Demo
+                                                Version</span>
+                                        </div>
+                                        <ul
+                                            style="font-size: 0.78rem; color: var(--text-muted); padding-left: 16px; margin: 0; line-height: 1.5; display: flex; flex-direction: column; gap: 4px;">
+                                            <li>Testing version loaded with default pre-packaged course schedules.</li>
+                                            <li>Alerts and reminders only work when the app remains open in the
+                                                foreground.</li>
+                                            <li>Dark Theme was hardcoded with no light mode switcher options.</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
 

@@ -30,6 +30,33 @@ const SettingsPanel = {
             this.addCustomSubject();
         });
 
+        // Initialize Performance/Battery Saver toggle
+        const perfToggle = document.getElementById("performance-mode-toggle");
+        if (perfToggle) {
+            perfToggle.checked = PerformanceManager.isEnabled();
+            perfToggle.addEventListener("change", (e) => {
+                PerformanceManager.set(e.target.checked);
+                Alerts.success(
+                    e.target.checked ? "Saver Mode Enabled" : "Saver Mode Disabled",
+                    e.target.checked ? "Animations and backgrounds optimized to make the app run faster." : "Premium backgrounds and visual effects restored."
+                );
+            });
+        }
+
+        // Initialize Theme Toggle
+        const themeToggle = document.getElementById("theme-mode-toggle");
+        if (themeToggle) {
+            themeToggle.checked = ThemeManager.isLight();
+            themeToggle.addEventListener("change", (e) => {
+                const targetTheme = e.target.checked ? "light" : "dark";
+                ThemeManager.set(targetTheme);
+                Alerts.success(
+                    e.target.checked ? "Light Mode Active" : "Dark Mode Active",
+                    e.target.checked ? "White theme layout loaded successfully." : "Full premium dark themes restored."
+                );
+            });
+        }
+
         // Setup base64 profile image selector
         this.tempProfileImage = null;
         const avatarInput = document.getElementById("settings-avatar-input");

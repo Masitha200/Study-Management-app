@@ -53,6 +53,34 @@ const CalendarView = {
             this.saveSession();
         });
 
+        // Toggle reschedule row based on status selection
+        const statusSelect = document.getElementById("schedule-status");
+        if (statusSelect) {
+            statusSelect.addEventListener("change", (e) => {
+                const rescheduleRow = document.getElementById("reschedule-date-row");
+                if (rescheduleRow) {
+                    if (e.target.value === "skipped") {
+                        rescheduleRow.style.display = "flex";
+
+                        // Set tomorrow's date as default
+                        const schedDateVal = document.getElementById("schedule-date").value;
+                        if (schedDateVal) {
+                            const d = new Date(schedDateVal);
+                            d.setDate(d.getDate() + 1);
+                            document.getElementById("reschedule-date").value = formatDateYMD(d);
+                        } else {
+                            document.getElementById("reschedule-date").value = formatDateYMD(new Date());
+                        }
+                        document.getElementById("reschedule-time").value = document.getElementById("schedule-time").value || "10:00";
+                    } else {
+                        rescheduleRow.style.display = "none";
+                        document.getElementById("reschedule-date").value = "";
+                        document.getElementById("reschedule-time").value = "";
+                    }
+                }
+            });
+        }
+
         // Search & Filter controls
         document.getElementById("scheduler-search").addEventListener("input", () => this.renderListTable());
         document.getElementById("scheduler-filter-subject").addEventListener("change", () => this.renderListTable());
@@ -118,6 +146,16 @@ const CalendarView = {
 
         const titleEl = document.getElementById("schedule-modal-title");
         const submitBtn = document.getElementById("btn-submit-schedule");
+
+        // Hide reschedule row initially
+        const rescheduleRow = document.getElementById("reschedule-date-row");
+        if (rescheduleRow) {
+            rescheduleRow.style.display = "none";
+        }
+        const reschedDate = document.getElementById("reschedule-date");
+        if (reschedDate) reschedDate.value = "";
+        const reschedTime = document.getElementById("reschedule-time");
+        if (reschedTime) reschedTime.value = "";
 
         if (sessionObj) {
             titleEl.textContent = "Edit Study Session";
@@ -208,9 +246,44 @@ const CalendarView = {
             }
         }
 
+        // Handle duplication/rescheduling if session is set to skipped and a new date is entered
+        const reschedDateVal = document.getElementById("reschedule-date") ? document.getElementById("reschedule-date").value : "";
+        const reschedTimeVal = document.getElementById("reschedule-time") ? document.getElementById("reschedule-time").value : "";
+
+        let alertMsg = "Study session saved successfully.";
+
+        if (status === "skipped" && reschedDateVal) {
+            const newReschedSession = {
+                id: "sched_" + (Date.now() + 1), // Offset slightly to guarantee uniqueness
+                userId: AppState.currentUser.id,
+                subject: subject,
+                title: title + " (Rescheduled)",
+                date: reschedDateVal,
+                startTime: reschedTimeVal || timeInput,
+                duration: parseInt(duration),
+                status: "upcoming"
+            };
+            schedules.push(newReschedSession);
+
+            if (supabaseClient) {
+                supabaseClient.from('schedules').insert({
+                    id: newReschedSession.id,
+                    user_id: newReschedSession.userId,
+                    subject: newReschedSession.subject,
+                    title: newReschedSession.title,
+                    date: newReschedSession.date,
+                    start_time: newReschedSession.startTime,
+                    duration: newReschedSession.duration,
+                    status: newReschedSession.status
+                }).then(({ error }) => { if (error) console.error("Supabase reschedule insert error:", error); });
+            }
+            alertMsg = `Original session marked as skipped & rescheduled to ${reschedDateVal}.`;
+        }
+
         Store.saveAllSchedules(schedules);
         this.closeModal();
         this.render();
+        Alerts.success("Schedule Updated", alertMsg);
     },
 
     async deleteSession(sessionId) {
@@ -290,7 +363,7 @@ const CalendarView = {
                 columnCell.appendChild(mobileLabel);
 
                 columnCell.addEventListener("click", (e) => {
-                    if (e.target === columnCell) {
+                    if (!e.target.closest('.cal-session-node')) {
                         this.openModal();
                         document.getElementById("schedule-date").value = dateStringYMD;
                     }
@@ -396,7 +469,7 @@ const CalendarView = {
                 cellNode.appendChild(dayNumBadge);
 
                 cellNode.addEventListener("click", (e) => {
-                    if (e.target === cellNode || e.target === dayNumBadge) {
+                    if (!e.target.closest('.cal-session-node')) {
                         this.openModal();
                         document.getElementById("schedule-date").value = dateYMD;
                     }

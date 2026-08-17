@@ -118,7 +118,12 @@ const Store = {
     saveAllUsers(users) { this.set("users", users); },
 
     getAllSchedules() { return this.get("schedules", []); },
-    saveAllSchedules(schedules) { this.set("schedules", schedules); },
+    saveAllSchedules(schedules) {
+        this.set("schedules", schedules);
+        if (typeof Notifications !== "undefined" && typeof Notifications.rescheduleAllFutureSessions === "function") {
+            Notifications.rescheduleAllFutureSessions();
+        }
+    },
 
     getAllTasks() { return this.get("tasks", []); },
     saveAllTasks(tasks) { this.set("tasks", tasks); },
@@ -434,6 +439,16 @@ function setupMobileSidebar() {
 function updateCommonUI() {
     const current = AppState.currentUser;
     if (!current) return;
+
+    // Apply performance configurations
+    if (typeof PerformanceManager !== "undefined") {
+        PerformanceManager.init();
+    }
+
+    // Apply theme configurations
+    if (typeof ThemeManager !== "undefined") {
+        ThemeManager.init();
+    }
 
     // Request local notification permissions if available
     if (typeof Notifications !== "undefined") {
@@ -861,6 +876,8 @@ const Notifications = {
                             body: body,
                             id: Math.floor(Math.random() * 100000),
                             schedule: { at: new Date(Date.now() + 1000) },
+                            smallIcon: "ic_launcher",
+                            largeIcon: "ic_launcher",
                             sound: null,
                             attachments: null,
                             actionTypeId: "",
@@ -873,6 +890,78 @@ const Notifications = {
             }
         } catch (e) {
             console.error("Failed to send notification:", e);
+        }
+    },
+
+    async rescheduleAllFutureSessions() {
+        try {
+            if (!(window.Capacitor && window.Capacitor.isPluginAvailable("LocalNotifications"))) {
+                return; // Runs only in native container contexts
+            }
+
+            const { LocalNotifications } = window.Capacitor.Plugins;
+
+            // 1. Cancel all currently pending notifications from our app
+            const pending = await LocalNotifications.getPending();
+            if (pending.notifications && pending.notifications.length > 0) {
+                await LocalNotifications.cancel(pending);
+            }
+
+            const user = AppState.currentUser;
+            if (!user) return;
+
+            // 2. Fetch all upcoming schedules for current user in the future
+            const schedules = Store.getAllSchedules().filter(s => s.userId === user.id && s.status === "upcoming");
+            const now = new Date();
+            const notificationsToSchedule = [];
+
+            // Helper to generate unique 32-bit numeric hash for each study ID
+            const stringToHash = (str) => {
+                let hash = 0;
+                for (let i = 0; i < str.length; i++) {
+                    hash = ((hash << 5) - hash) + str.charCodeAt(i);
+                    hash |= 0;
+                }
+                return Math.abs(hash);
+            };
+
+            // Avoid reference issues by reading subjects safely
+            const subjects = Store.get("subjects", []);
+
+            schedules.forEach(s => {
+                if (!s.date || !s.startTime) return;
+                const [year, month, day] = s.date.split("-").map(Number);
+                const [hours, minutes] = s.startTime.split(":").map(Number);
+                const sessionDateTime = new Date(year, month - 1, day, hours, minutes, 0);
+
+                if (sessionDateTime > now) {
+                    const subObj = subjects.find(sub => sub.id === s.subject);
+                    const subName = subObj ? subObj.name : "Study Session";
+
+                    notificationsToSchedule.push({
+                        title: `📖 Session Alert: ${subName}`,
+                        body: `It is time to start: "${s.title}"`,
+                        id: stringToHash(s.id),
+                        schedule: { at: sessionDateTime },
+                        smallIcon: "ic_launcher",
+                        largeIcon: "ic_launcher",
+                        sound: null,
+                        attachments: null,
+                        actionTypeId: "",
+                        extra: null
+                    });
+                }
+            });
+
+            // 3. Schedule them Native-Wide
+            if (notificationsToSchedule.length > 0) {
+                await LocalNotifications.schedule({
+                    notifications: notificationsToSchedule
+                });
+                console.log(`Scheduled ${notificationsToSchedule.length} native alarms for future study schedules.`);
+            }
+        } catch (e) {
+            console.error("Failed to reschedule native notifications:", e);
         }
     }
 };
@@ -921,3 +1010,88 @@ if (typeof document !== "undefined") {
         startScheduleNotificationMonitor();
     }
 }
+
+// --- PERFORMANCE / LOW-END OPTIMIZATION MANAGER ---
+const PerformanceManager = {
+    init() {
+        if (typeof document === "undefined") return;
+
+        let lowPerf = localStorage.getItem("aether_low_perf");
+
+        // Heuristic: If never set, check if mobile user agent
+        if (lowPerf === null) {
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            lowPerf = isMobile ? "true" : "false";
+            localStorage.setItem("aether_low_perf", lowPerf);
+        }
+
+        this.apply(lowPerf === "true");
+    },
+
+    apply(isEnabled) {
+        if (typeof document === "undefined") return;
+        const htmlEl = document.documentElement;
+
+        if (isEnabled) {
+            htmlEl.classList.add("low-perf");
+            document.body?.classList.add("low-perf");
+        } else {
+            htmlEl.classList.remove("low-perf");
+            document.body?.classList.remove("low-perf");
+        }
+    },
+
+    isEnabled() {
+        return localStorage.getItem("aether_low_perf") === "true";
+    },
+
+    set(isEnabled) {
+        localStorage.setItem("aether_low_perf", isEnabled ? "true" : "false");
+        this.apply(isEnabled);
+    }
+};
+
+// Auto initialize on script load
+PerformanceManager.init();
+
+// --- THEME THEMER MANAGER (DARK / LIGHT MODE) ---
+const ThemeManager = {
+    init() {
+        if (typeof document === "undefined") return;
+
+        let activeTheme = localStorage.getItem("aether_theme");
+
+        // Default to dark theme if not set
+        if (activeTheme === null) {
+            activeTheme = "dark";
+            localStorage.setItem("aether_theme", activeTheme);
+        }
+
+        this.apply(activeTheme);
+    },
+
+    apply(theme) {
+        if (typeof document === "undefined") return;
+        const htmlEl = document.documentElement;
+
+        if (theme === "light") {
+            htmlEl.classList.add("light-theme");
+            document.body?.classList.add("light-theme");
+        } else {
+            htmlEl.classList.remove("light-theme");
+            document.body?.classList.remove("light-theme");
+        }
+    },
+
+    isLight() {
+        return localStorage.getItem("aether_theme") === "light";
+    },
+
+    set(theme) {
+        localStorage.setItem("aether_theme", theme);
+        this.apply(theme);
+    }
+};
+
+// Initialize theme on script load
+ThemeManager.init();
